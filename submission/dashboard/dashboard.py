@@ -74,7 +74,7 @@ customer_data = pd.DataFrame({
     "Latitude": [40.1277, 39.9292, 39.9334],
     "Longitude": [116.6546, 116.4173, 116.3408],
     "Station": ["Shunyi", "Dongsi", "Guanyuan"],
-    "Count": [500, 1200, 800]  # Example customer counts
+    "Count": [500, 1200, 800]  
 })
 
 # Create map for geolocation
