@@ -6,9 +6,9 @@ import folium
 from streamlit_folium import st_folium
 
 # Load your pre-processed data
-data_shunyi = pd.read_csv('./data_shunyi.csv')
-data_dongsi = pd.read_csv('./data_dongsi.csv')
-data_guanyuan = pd.read_csv('./data_guanyuan.csv')
+data_shunyi = pd.read_csv('dashboard/data_shunyi.csv')
+data_dongsi = pd.read_csv('dashboard/data_dongsi.csv')
+data_guanyuan = pd.read_csv('dashboard/data_guanyuan.csv')
 
 # Add geolocation data for each station
 locations = {
