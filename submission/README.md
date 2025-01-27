@@ -48,9 +48,9 @@ Jika Anda memiliki saran atau perbaikan, silakan ajukan pull request atau buat i
 Repository ini dilisensikan di bawah [MIT License](https://opensource.org/licenses/MIT).
 
 ## Penulis
-Nama: Raka Satria Efendi
-Email: [rakaefendi1683@gmail.com](mailto:rakaefendi1683@gmail.com)
-GitHub: [xurobaebae](https://github.com/xurobaebae)
-Instagram: [raka.fx](https://instagram.com/raka.fx)
+- Nama: Raka Satria Efendi
+- Email: [rakaefendi1683@gmail.com](mailto:rakaefendi1683@gmail.com)
+- GitHub: [xurobaebae](https://github.com/xurobaebae)
+- Instagram: [raka.fx](https://instagram.com/raka.fx)
 
 Anda dapat mengganti `https://github.com/username/repo-name.git` dengan URL repository Anda yang sebenarnya. Juga, sesuaikan bagian "Penulis" jika Anda ingin menambahkan informasi lain. Selamat mengerjakan proyek Anda!
