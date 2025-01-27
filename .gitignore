@@ -1,0 +1,24 @@
+# Environment
+.venv/
+myenv/
+
+# VS Code
+.vscode/
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+
+# Byte-compiled / optimized / DLL files
+*.pyc
+*.pyo
+*.pyd
+
+# Unit test / coverage reports
+.coverage
+.tox/
+
+# Other files
+*.log
+*.sqlite3
