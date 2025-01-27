@@ -8,9 +8,9 @@ import os
 
 # Load your pre-processed data
 base_path = os.path.dirname(__file__)
-path_shunyi = os.path.join(base_path, 'dashboard', 'data_shunyi.csv')
-path_dongsi = os.path.join(base_path, 'dashboard', 'data_dongsi.csv')
-path_guanyuan = os.path.join(base_path, 'dashboard', 'data_guanyuan.csv')
+path_shunyi = os.path.join(base_path, 'data_shunyi.csv')
+path_dongsi = os.path.join(base_path, 'data_dongsi.csv')
+path_guanyuan = os.path.join(base_path, 'data_guanyuan.csv')
 
 # Load your pre-processed data using jalur absolut
 data_shunyi = pd.read_csv(path_shunyi)
