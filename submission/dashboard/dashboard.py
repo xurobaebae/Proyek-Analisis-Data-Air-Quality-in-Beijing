@@ -4,12 +4,15 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import folium
 from streamlit_folium import st_folium
+import os
 
 # Load your pre-processed data
-path_shunyi = os.path.join(os.path.dirname(__file__), 'dashboard/data_shunyi.csv')
-path_dongsi = os.path.join(os.path.dirname(__file__), 'dashboard/data_dongsi.csv')
-path_guanyuan = os.path.join(os.path.dirname(__file__), 'dashboard/data_guanyuan.csv')
+base_path = os.path.dirname(__file__)
+path_shunyi = os.path.join(base_path, 'dashboard', 'data_shunyi.csv')
+path_dongsi = os.path.join(base_path, 'dashboard', 'data_dongsi.csv')
+path_guanyuan = os.path.join(base_path, 'dashboard', 'data_guanyuan.csv')
 
+# Load your pre-processed data using jalur absolut
 data_shunyi = pd.read_csv(path_shunyi)
 data_dongsi = pd.read_csv(path_dongsi)
 data_guanyuan = pd.read_csv(path_guanyuan)
