@@ -35,10 +35,9 @@ Jika Anda menggunakan shell atau terminal, Anda dapat mengikuti langkah-langkah 
 
 Setelah menyiapkan lingkungan, jalankan aplikasi Streamlit dengan perintah berikut:
     ```streamlit run dashboard.py```
+    
+## Aplikasi akan terbuka di browser Anda, siap digunakan!
 
-<<<<<<< HEAD
-Aplikasi akan terbuka di browser Anda, siap digunakan!
-=======
 ## Lisensi
 Repository ini dilisensikan di bawah [MIT License](https://opensource.org/licenses/MIT).
 
