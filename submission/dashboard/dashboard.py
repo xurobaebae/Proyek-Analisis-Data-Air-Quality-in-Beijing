@@ -17,6 +17,10 @@ data_shunyi = pd.read_csv(path_shunyi)
 data_dongsi = pd.read_csv(path_dongsi)
 data_guanyuan = pd.read_csv(path_guanyuan)
 
+# Convert 'Tanggal' to datetime in individual datasets
+data_shunyi['Tanggal'] = pd.to_datetime(data_shunyi[['year', 'month', 'day', 'hour']])
+data_dongsi['Tanggal'] = pd.to_datetime(data_dongsi[['year', 'month', 'day', 'hour']])
+data_guanyuan['Tanggal'] = pd.to_datetime(data_guanyuan[['year', 'month', 'day', 'hour']])
 
 # Add geolocation data for each station
 locations = {
@@ -25,15 +29,10 @@ locations = {
     "Guanyuan": [39.9334, 116.3408]
 }
 
-# Combine the data into one main DataFrame
+# Combine the data into one main DataFrame and convert 'Tanggal' to datetime
 main_data = pd.concat([data_shunyi, data_dongsi, data_guanyuan], keys=['Shunyi', 'Dongsi', 'Guanyuan']).reset_index(level=0).rename(columns={'level_0': 'Location'})
+main_data['Tanggal'] = pd.to_datetime(main_data['Tanggal'])  # Ensure 'Tanggal' is datetime
 
-# Convert 'Tanggal' to datetime
-data_shunyi['Tanggal'] = pd.to_datetime(data_shunyi[['year', 'month', 'day', 'hour']])
-data_dongsi['Tanggal'] = pd.to_datetime(data_dongsi[['year', 'month', 'day', 'hour']])
-data_guanyuan['Tanggal'] = pd.to_datetime(data_guanyuan[['year', 'month', 'day', 'hour']])
-
-# Set title
 # Set title
 st.title("🌍 Dashboard Analisis Kualitas Udara di Beijing")
 
@@ -57,42 +56,30 @@ with st.sidebar:
     st.write("Github: [xurobaebae](https://github.com/xurobaebae)")
     st.write("Instagram: [raka.fx](https://instagram.com/raka.fx)")
 
+# Fitur interaktif: Filtering berdasarkan tanggal
+st.sidebar.header("Filter Data")
+start_date = st.sidebar.date_input("Tanggal Mulai", value=data_shunyi['Tanggal'].min())
+end_date = st.sidebar.date_input("Tanggal Akhir", value=data_shunyi['Tanggal'].max())
+selected_station = st.sidebar.selectbox("Pilih Stasiun", options=['Shunyi', 'Dongsi', 'Guanyuan'])
+
+# Filter data based on selections
+filtered_data = main_data[(main_data['Tanggal'] >= pd.to_datetime(start_date)) & 
+                          (main_data['Tanggal'] <= pd.to_datetime(end_date)) & 
+                          (main_data['Location'] == selected_station)]
+
 # Display data
 st.header("Data Per Lokasi")
-st.write("Data Shunyi")
-st.write(data_shunyi.head())
-st.write("Data Dongsi")
-st.write(data_dongsi.head())
-st.write("Data Guanyuan")
-st.write(data_guanyuan.head())
-st.write("Data Keseluruhan")
-st.write(main_data.head())
+st.write(f"Data {selected_station}")
+st.write(filtered_data.head())
 
 # Visualize geolocation map of 3 Locations
 st.header("Lokasi Shunyi, Guanyuan, dan Dongsi di Maps")
-customer_data = pd.DataFrame({
-    "Latitude": [40.1277, 39.9292, 39.9334],
-    "Longitude": [116.6546, 116.4173, 116.3408],
-    "Station": ["Shunyi", "Dongsi", "Guanyuan"],
-    "Count": [500, 1200, 800]  # Example customer counts
-})
-
-# Create map for customer geolocation
 geo_map = folium.Map(location=[39.93, 116.4], zoom_start=10)
 
-for _, row in customer_data.iterrows():
-    folium.CircleMarker(
-        location=[row['Latitude'], row['Longitude']],
-        radius=row['Count'] / 100,  # Scale marker size
-        color='red',
-        fill=True,
-        fill_color='red',
-        fill_opacity=0.6,
-        popup=f"Station: {row['Station']}\n:Count {row['Count']}"
-    ).add_to(geo_map)
+for station, coords in locations.items():
+    folium.Marker(location=coords, popup=f"Stasiun: {station}").add_to(geo_map)
 
 st_folium(geo_map, key="geo_map")
-
 
 # Question 1: Hubungan antara Curah Hujan dan Jumlah Polutan
 st.header("1. Hubungan antara Curah Hujan dan Jumlah Polutan")
@@ -102,12 +89,10 @@ colors = ['red', 'blue', 'green']
 fig, axs = plt.subplots(1, 3, figsize=(18, 6), sharey=True)
 
 for i, pollutant in enumerate(pollutants):
-    for data, color, label in zip([data_shunyi, data_dongsi, data_guanyuan], colors, ['Shunyi', 'Dongsi', 'Guanyuan']):
-        sns.regplot(data=data, x='RAIN', y=pollutant, scatter_kws={'alpha': 0.5}, line_kws={"color": color}, ax=axs[i], label=label)
+    sns.regplot(data=filtered_data, x='RAIN', y=pollutant, scatter_kws={'alpha': 0.5}, line_kws={"color": colors[i]}, ax=axs[i])
     axs[i].set_title(f'Curah Hujan vs {pollutant}')
     axs[i].set_xlabel('Curah Hujan (mm)')
     axs[i].set_ylabel(f'{pollutant} (µg/m³)')
-    axs[i].legend()
 
 st.pyplot(fig)
 
@@ -117,26 +102,20 @@ st.header("2. Korelasi antara Kecepatan Angin dan Polutan")
 fig2, axs2 = plt.subplots(1, 3, figsize=(18, 6), sharey=True)
 
 for i, pollutant in enumerate(pollutants):
-    for data, color, label in zip([data_shunyi, data_dongsi, data_guanyuan], colors, ['Shunyi', 'Dongsi', 'Guanyuan']):
-        sns.regplot(data=data, x='WSPM', y=pollutant, scatter_kws={'alpha': 0.5}, line_kws={"color": color}, ax=axs2[i], label=label)
+    sns.regplot(data=filtered_data, x='WSPM', y=pollutant, scatter_kws={'alpha': 0.5}, line_kws={"color": colors[i]}, ax=axs2[i])
     axs2[i].set_title(f'Kecepatan Angin vs {pollutant}')
     axs2[i].set_xlabel('Kecepatan Angin (m/s)')
     axs2[i].set_ylabel(f'{pollutant} (µg/m³)')
-    axs2[i].legend()
 
 st.pyplot(fig2)
 
 # Question 3: Tren Curah Hujan Bulanan
 st.header("3. Tren Curah Hujan Bulanan")
 
-monthly_rain_shunyi = data_shunyi.groupby(data_shunyi['Tanggal'].dt.to_period('M')).agg({'RAIN': 'sum'}).reset_index()
-monthly_rain_dongsi = data_dongsi.groupby(data_dongsi['Tanggal'].dt.to_period('M')).agg({'RAIN': 'sum'}).reset_index()
-monthly_rain_guanyuan = data_guanyuan.groupby(data_guanyuan['Tanggal'].dt.to_period('M')).agg({'RAIN': 'sum'}).reset_index()
+monthly_rain_filtered = filtered_data.groupby(filtered_data['Tanggal'].dt.to_period('M')).agg({'RAIN': 'sum'}).reset_index()
 
 plt.figure(figsize=(12, 6))
-plt.plot(monthly_rain_shunyi['Tanggal'].dt.to_timestamp(), monthly_rain_shunyi['RAIN'], marker='o', color='red', label='Shunyi')
-plt.plot(monthly_rain_dongsi['Tanggal'].dt.to_timestamp(), monthly_rain_dongsi['RAIN'], marker='o', color='blue', label='Dongsi')
-plt.plot(monthly_rain_guanyuan['Tanggal'].dt.to_timestamp(), monthly_rain_guanyuan['RAIN'], marker='o', color='green', label='Guanyuan')
+plt.plot(monthly_rain_filtered['Tanggal'].dt.to_timestamp(), monthly_rain_filtered['RAIN'], marker='o', color='red', label=selected_station)
 plt.title('Tren Curah Hujan Bulanan')
 plt.xlabel('Tanggal')
 plt.ylabel('Curah Hujan (mm)')

@@ -1,56 +1,39 @@
- # Proyek Analisis Kualitas Udara di Beijing
+## Menyiapkan Lingkungan - Anaconda
 
-Proyek ini merupakan analisis data yang dilakukan sebagai bagian dari tugas akhir program Dicoding "Belajar Analisis Data dengan Python". Dalam proyek ini, saya melakukan analisis terhadap kualitas udara di beberapa lokasi di Beijing, termasuk Shunyi, Dongsi, dan Guanyuan. Data yang digunakan mencakup berbagai parameter kualitas udara seperti PM2.5, PM10, SO2, NO2, CO, O3, dan faktor meteorologi lainnya.
+Untuk membuat lingkungan pengembangan menggunakan Anaconda, ikuti langkah-langkah berikut:
 
-## Fitur Utama
+1. Buat lingkungan baru dengan nama `main-ds` dan instal Python versi 3.9:
+   ```conda create --name main-ds python=3.9```
 
-- **Data Preprocessing**: Memuat dan mengolah data dari beberapa lokasi pengamatan untuk analisis lebih lanjut.
-- **Visualisasi Data**: Menggunakan library Seaborn dan Matplotlib untuk membuat berbagai visualisasi dari data kualitas udara.
-- **Peta Geolokasi**: Mengintegrasikan peta interaktif menggunakan Folium untuk menunjukkan distribusi kualitas udara berdasarkan lokasi stasiun.
-- **Dashboard Interaktif**: Membangun dashboard interaktif menggunakan Streamlit untuk menyajikan analisis secara visual dan informatif.
+2.  Aktifkan lingkungan yang telah dibuat
+    ```conda activate main-ds```
 
-## Data yang Digunakan
+3. Instal semua dependensi yang diperlukan dari file requirements.txt:
+    ```pip install -r requirements.txt```  
 
-Data kualitas udara yang dianalisis mencakup parameter seperti:
-- **PM2.5**: Konsentrasi partikulat halus dengan ukuran ≤ 2,5 µm (mikrogram/m³).
-- **PM10**: Konsentrasi partikulat kasar dengan ukuran ≤ 10 µm (mikrogram/m³).
-- **SO2**: Konsentrasi sulfur dioksida (µg/m³).
-- **NO2**: Konsentrasi nitrogen dioksida (µg/m³).
-- **CO**: Konsentrasi karbon monoksida (mg/m³).
-- **O3**: Konsentrasi ozon (µg/m³).
-- **TEMP**: Suhu udara (°C).
-- **PRES**: Tekanan udara (hPa).
-- **DEWP**: Titik embun (°C).
-- **RAIN**: Curah hujan (mm).
-- **wd**: Arah angin (misalnya, N untuk utara).
-- **WSPM**: Kecepatan angin (m/s).
-- **station**: Lokasi stasiun pengamatan.
+## Menyiapkan Lingkungan - Shell/Terminal
+Jika Anda menggunakan shell atau terminal, Anda dapat mengikuti langkah-langkah ini:
 
-## Cara Menggunakan
+1. Buat direktori untuk proyek analisis data:
 
-1. Clone repository ini ke mesin lokal Anda:
-   ```git clone https://github.com/username/repo-name.git```
-    ```cd repo-name```
+    ```mkdir proyek_analisis_data```
 
-2. Install semua dependensi yang diperlukan dengan:
+2. Masuk ke direktori proyek:
+
+    ```cd proyek_analisis_data```
+
+3. Instal Pipenv untuk mengelola lingkungan dan dependensi:
+    ```pipenv install```
+
+4. Aktifkan lingkungan Pipenv:
+    ```pipenv shell```
+
+5. Instal semua paket yang diperlukan dari file requirements.txt:
     ```pip install -r requirements.txt```
-    Jalankan aplikasi Streamlit dengan perintah berikut:
 
-3. Jalankan aplikasi Streamlit dengan perintah berikut:
-    ```streamlit run app.py```
-    
-4. Akses aplikasi di browser Anda melalui URL yang ditampilkan di terminal (biasanya http://localhost:8501).
+## Menjalankan Aplikasi Streamlit
 
-## Kontribusi
-Jika Anda memiliki saran atau perbaikan, silakan ajukan pull request atau buat issue di repository ini.
+Setelah menyiapkan lingkungan, jalankan aplikasi Streamlit dengan perintah berikut:
+    ```streamlit run dashboard.py```
 
-## Lisensi
-Repository ini dilisensikan di bawah [MIT License](https://opensource.org/licenses/MIT).
-
-## Penulis
-Nama: Raka Satria Efendi
-Email: [rakaefendi1683@gmail.com](mailto:rakaefendi1683@gmail.com)
-GitHub: [xurobaebae](https://github.com/xurobaebae)
-Instagram: [raka.fx](https://instagram.com/raka.fx)
-
-Anda dapat mengganti `https://github.com/username/repo-name.git` dengan URL repository Anda yang sebenarnya. Juga, sesuaikan bagian "Penulis" jika Anda ingin menambahkan informasi lain. Selamat mengerjakan proyek Anda!
+Aplikasi akan terbuka di browser Anda, siap digunakan!
