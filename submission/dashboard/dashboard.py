@@ -4,11 +4,19 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import folium
 from streamlit_folium import st_folium
+import os
 
 # Load your pre-processed data
-data_shunyi = pd.read_csv('data_shunyi.csv')
-data_dongsi = pd.read_csv('data_dongsi.csv')
-data_guanyuan = pd.read_csv('data_guanyuan.csv')
+base_path = os.path.dirname(__file__)
+path_shunyi = os.path.join(base_path, 'data_shunyi.csv')
+path_dongsi = os.path.join(base_path, 'data_dongsi.csv')
+path_guanyuan = os.path.join(base_path, 'data_guanyuan.csv')
+
+# Load your pre-processed data using jalur absolut
+data_shunyi = pd.read_csv(path_shunyi)
+data_dongsi = pd.read_csv(path_dongsi)
+data_guanyuan = pd.read_csv(path_guanyuan)
+
 
 # Add geolocation data for each station
 locations = {
