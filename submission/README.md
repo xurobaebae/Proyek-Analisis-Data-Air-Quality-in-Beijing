@@ -48,4 +48,3 @@ Repository ini dilisensikan di bawah [MIT License](https://opensource.org/licens
 - Instagram: [raka.fx](https://instagram.com/raka.fx)
 
 Anda dapat mengganti `https://github.com/username/repo-name.git` dengan URL repository Anda yang sebenarnya. Juga, sesuaikan bagian "Penulis" jika Anda ingin menambahkan informasi lain. Selamat mengerjakan proyek Anda!
->>>>>>> ac2975149b2904b017c30b152222d6ac64599b6c
