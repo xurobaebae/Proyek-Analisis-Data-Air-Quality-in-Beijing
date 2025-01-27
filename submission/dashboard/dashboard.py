@@ -74,6 +74,14 @@ st.write(filtered_data.head())
 
 # Visualize geolocation map of 3 Locations
 st.header("Lokasi Shunyi, Guanyuan, dan Dongsi di Maps")
+customer_data = pd.DataFrame({
+    "Latitude": [40.1277, 39.9292, 39.9334],
+    "Longitude": [116.6546, 116.4173, 116.3408],
+    "Station": ["Shunyi", "Dongsi", "Guanyuan"],
+    "Count": [500, 1200, 800]  
+})
+
+# Create map for geolocation
 geo_map = folium.Map(location=[39.93, 116.4], zoom_start=10)
 
 for station, coords in locations.items():
