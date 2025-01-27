@@ -77,7 +77,7 @@ customer_data = pd.DataFrame({
     "Count": [500, 1200, 800]  # Example customer counts
 })
 
-# Create map for customer geolocation
+# Create map for geolocation
 geo_map = folium.Map(location=[39.93, 116.4], zoom_start=10)
 
 for _, row in customer_data.iterrows():
